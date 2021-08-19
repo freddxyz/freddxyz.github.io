@@ -74,22 +74,22 @@ window.onload = function(){
         let currentTick = Date.now()
         deltaTime = (currentTick - prevTick) / 1000;
         prevTick = currentTick;
-        let minimumDimension = Math.min(window.innerWidth, window.innerHeight);
+        //let minimumDimension = Math.min(window.innerWidth, window.innerHeight);
         context.font = (window.innerWidth / 10) + 'px Roboto';
         console.log(context.font)
 
         if(ticker < 1){
             whiteSquare.position = screenCenter;
-            whiteSquare.size.x -= deltaTime * (4000 - minimumDimension/6);
-            whiteSquare.size.y -= deltaTime * (4000 - minimumDimension/6);
+            whiteSquare.size.x -= deltaTime * (4000 - window.innerWidth/10);
+            whiteSquare.size.y -= deltaTime * (4000 - window.innerWidth/10);
             rot += 765 * deltaTime;   
         }else if(ticker > 1 && ticker < 1.5) {
             let sqDiam = Math.sqrt(2 * (Math.pow(whiteSquare.size.x/2, 2)));
             squareOffset.x += (context.measureText("FradZGenius").width/2 + sqDiam + 25) * (deltaTime /.5);
             console.log(squareOffset.x)
             whiteSquare.position = screenCenter.sub(squareOffset);
-            whiteSquare.size.x = minimumDimension/6;
-            whiteSquare.size.y = minimumDimension/6;
+            whiteSquare.size.x = window.innerWidth/10;
+            whiteSquare.size.y = window.innerWidth/10;
             whiteSquare.rotation -= 855 * (deltaTime / .5);
             squareX = window.innerWidth/2 - (ticker - 1) * 500;
             //TODO:
