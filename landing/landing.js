@@ -77,29 +77,26 @@ window.onload = function(){
         //let minimumDimension = Math.min(window.innerWidth, window.innerHeight);
         context.font = (window.innerWidth / 10) + 'px Roboto';
         console.log(context.font)
-
+        let sqDiag = Math.sqrt(2 * (Math.pow(whiteSquare.size.x/2, 2)));
         if(ticker < 1){
             whiteSquare.position = screenCenter;
             whiteSquare.size.x -= deltaTime * (4000 - window.innerWidth/10);
             whiteSquare.size.y -= deltaTime * (4000 - window.innerWidth/10);
             rot += 765 * deltaTime;   
         }else if(ticker > 1 && ticker < 1.5) {
-            let sqDiam = Math.sqrt(2 * (Math.pow(whiteSquare.size.x/2, 2)));
-            squareOffset.x += (context.measureText("FradZGenius").width/2 + sqDiam + 25) * (deltaTime /.5);
+            squareOffset.x += (context.measureText("FradZGenius").width/2 + 25) * (deltaTime /.5);
             console.log(squareOffset.x)
             whiteSquare.position = screenCenter.sub(squareOffset);
             whiteSquare.size.x = window.innerWidth/10;
             whiteSquare.size.y = window.innerWidth/10;
             whiteSquare.rotation -= 855 * (deltaTime / .5);
             squareX = window.innerWidth/2 - (ticker - 1) * 500;
-            //TODO:
-            //scaling with window maybe
-            //uhhh finish animation
         }else{
             context.fillStyle = 'rgba(255,255,255,' + 1 + ')';
             context.textAlign = "center"
             context.textBaseline = "middle"
-            context.fillText("FradZGenius", window.innerWidth/2, window.innerHeight/2);
+            context.fillText("FradZGenius", window.innerWidth/2 + sqDiag, window.innerHeight/2);
+            whiteSquare.rotation = 45;
             redStripe.size.x = whiteSquare.size.x / 3
             redStripe.size.y = whiteSquare.size.y;
         }
