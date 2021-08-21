@@ -1,3 +1,7 @@
+function cosineInterpolate(a, b, t){
+    return a + (((-Math.cos(Math.PI*t))/2) + .5) * (b-a);
+}
+
 class Rectangle {
     constructor(w,h, color, context){
         this.size = new vec2(w, h);
@@ -82,19 +86,27 @@ window.onload = function(){
             whiteSquare.position = screenCenter;
             whiteSquare.size.x -= deltaTime * (4000 - window.innerWidth/10);
             whiteSquare.size.y -= deltaTime * (4000 - window.innerWidth/10);
-            rot += 765 * deltaTime;   
+            whiteSquare.rotation += 720 * deltaTime;   
         }else if(ticker > 1 && ticker < 1.5) {
-            squareOffset.x += (context.measureText("FradZGenius").width/2 + 25) * (deltaTime /.5);
+            squareOffset.x = cosineInterpolate(0, context.measureText("FradZGenius").width/2 + 25, (ticker - 1) / .5)
             console.log(squareOffset.x)
             whiteSquare.position = screenCenter.sub(squareOffset);
             whiteSquare.size.x = window.innerWidth/10;
             whiteSquare.size.y = window.innerWidth/10;
-            whiteSquare.rotation -= 855 * (deltaTime / .5);
+            whiteSquare.rotation = cosineInterpolate(0, -405, (ticker - 1) / .5);
             squareX = window.innerWidth/2 - (ticker - 1) * 500;
-        }else{
-            context.fillStyle = 'rgba(255,255,255,' + 1 + ')';
+        }else if(ticker > 1.5 && ticker < 2){
+            context.fillStyle = 'rgba(255,255,255,' + cosineInterpolate(0, 1, (ticker-1.5)/.5) + ')';
             context.textAlign = "center"
             context.textBaseline = "middle"
+            context.fillText("FradZGenius", window.innerWidth/2 + sqDiag - cosineInterpolate(sqDiag, 0, (ticker-1.5)/.5), window.innerHeight/2);
+            whiteSquare.rotation = 45;
+            redStripe.size.x = whiteSquare.size.x / 3
+            redStripe.size.y = cosineInterpolate(0, whiteSquare.size.y, (ticker-1.5)/.5);
+        } else{
+            context.fillStyle = "white";
+            context.textAlign = "center";
+            context.textBaseline = "middle";
             context.fillText("FradZGenius", window.innerWidth/2 + sqDiag, window.innerHeight/2);
             whiteSquare.rotation = 45;
             redStripe.size.x = whiteSquare.size.x / 3
