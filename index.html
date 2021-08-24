@@ -4,7 +4,10 @@
         <h1>Work in progress</h1>
         <p>Coming soon...</p>
         <script>
-            location = "landing/landing.html"
+            if(!JSON.parse(localStorage.getItem("landed"))){
+                location = "landing/landing.html"
+                console.log('bruh')
+            }
         </script>
     </body>
 </html>
