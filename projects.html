@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>FradZGenius | Projects</title>
+
+        <!--ICON-->
+
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+
+        <!--FONTS-->
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+        <!--CSS-->
+
+        <link rel = "stylesheet" href = "style/essential.css">
+        <link rel = "stylesheet" href = "style/projects.css">
+
+    </head>
+    <body>
+        <div class = "wrapper">
+            <nav class = "navbar fixed">
+                <img src = "assets/logo.png" id = "logo" class = "logo noselect">
+                <ul class = "nav-items">
+                    <li>
+                        <a href = "index.html">Home</a>
+                    </lix>
+                    <li>
+                        <a href = "projects.html">Projects</a>
+                    </li>
+                    <li>
+                        <a href = "https://www.youtube.com/channel/UCxkhPyPBxjc_AfXWWrP_JGw">Youtube</a>
+                    </li>
+                    <li>
+                        <a href = "about.html">About me</a>
+                    </li>
+                </ul>
+            </nav>
+            <div class = "page-content">
+                <div class = "canvas-container">
+                    <canvas class = "background-canvas" id = "background-canvas"></canvas>
+                </div>
+                <div class = "canvas-cover header-cover">
+                    <h1 class = "cover-header main">My Projects</h1>
+                    <p>
+                        Here are some of the projects I've built.
+                    </p>
+                </div>
+                <div class = "canvas-cover showcase-cover">
+                    <h1 class = "cover-header">Roblox</h1>
+                    <div class = "project-showcase-container">
+                        <div class = "project-showcase-card">
+                            <h1 class = "showcase-card-title title-emphasis">FPS Framework</h1>
+                            <a href = "https://www.roblox.com/games/5477980027/FPS-Testing">
+                                <img src = "assets/fpsframeworkthumbnail.PNG">
+                            </a>
+                        </div>
+                        <div class = "project-showcase-card">
+                            <h1 class = "showcase-card-title">Fortress Warfare</h1>
+                            <a href = "https://www.roblox.com/games/2593053649/Fortress-Warfare">
+                                <img src = "assets/FortressWarfarethumb.PNG">
+                            </a>
+                        </div>
+                        <div class = "project-showcase-card">
+                            <h1 class = "showcase-card-title">The Great Castle Bombing</h1>
+                            <a href = "https://www.roblox.com/games/1320789304/The-Great-Castle-Bombing">
+                                <img src = "assets/castleBombing.png">
+                            </a>
+                        </div>
+                    </div>
+                    <p class = "notice">
+                        Note: most of these games have limited functionality due to Roblox updates / outdated code
+                    </p>
+                </div>
+                <div class = "canvas-cover showcase-cover">
+                    <h1 class = "cover-header">Javascript</h1>
+                    <div class = "project-showcase-container">
+                        <div class = "project-showcase-card">
+                            <h1 class = "showcase-card-title">Three.js Plane Game</h1>
+                            <a href = "https://ace-aviation.frederikdavidso.repl.co/">
+                                <img src = "assets/planegame.PNG">
+                            </a>
+                        </div>
+                        <div class = "project-showcase-card">
+                            <h1 class = "showcase-card-title">Multiplayer Top Down Shooter</h1>
+                            <a href = "https://TopDownShooter.frederikdavidso.repl.co">
+                                <img src = "assets/topdownshooter.PNG">
+                            </a>
+                        </div>
+                        <div class = "project-showcase-card">
+                            <h1 class = "showcase-card-title">SAT Collision Detection With Three.js</h1>
+                            <a href = "https://www.youtube.com/watch?v=cL9GHcJ6FrU">
+                                <img src = "assets/collisionDetection.PNG">
+                            </a>
+                        </div>
+                    </div>
+                    <!--https://TopDownShooter.frederikdavidso.repl.co-->
+                </div>
+            </div>
+        </div>
+
+        <!--JS-->
+        <script src = "js/useful.js"></script>
+        <script src = "js/expanding-circle-canvas-driver.js"></script>
+
+        <!--Rotate when scroll-->
+        <script>
+            const logo = document.getElementById('logo');
+            const pageContainer = document.getElementsByClassName('page-content')[0];
+            pageContainer.onscroll = function () {
+                logo.style.transform = `rotate(${pageContainer.scrollTop / 2}deg)`;
+                console.log(pageContainer);
+            };
+        </script>
+
+    </body>
+</html>

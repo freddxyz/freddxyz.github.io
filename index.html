@@ -1,10 +1,73 @@
 <!DOCTYPE html>
 <html>
+    <head>
+        <title>FradZGenius | Home</title>
+
+        <!--ICON-->
+
+        <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png">
+
+        <!--FONTS-->
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;700;800&display=swap" rel="stylesheet">
+
+        <!--CSS-->
+
+        <link rel = "stylesheet" href = "style/essential.css">
+        <link rel = "stylesheet" href = "style/index.css">
+
+    </head>
     <body>
-        <h1>Work in progress</h1>
-        <p>Coming soon...</p>
+        <div class = "wrapper">
+            <!--Navbar-->
+            <nav class = "navbar fixed">
+                <img src = "assets/logo.png" id = "logo" class = "logo noselect">
+                <ul class = "nav-items">
+                    <li>
+                        <a href = "index.html">Home</a>
+                    </lix>
+                    <li>
+                        <a href = "projects.html">Projects</a>
+                    </li>
+                    <li>
+                        <a href = "https://www.youtube.com/channel/UCxkhPyPBxjc_AfXWWrP_JGw">Youtube</a>
+                    </li>
+                    <li>
+                        <a href = "about.html">About me</a>
+                    </li>
+                </ul>
+            </nav>
+
+            <!--Main page content-->
+
+            <div class = "page-content">
+                <div class = "canvas-container">
+                    <canvas class = "background-canvas" id = "canvas"></canvas>
+                </div>
+                <div class = "canvas-cover">
+                    <h1 class = "cover-header">Hi, I'm Fred.</h1>
+                    <p>I like programming, computer science, math, and game development. IDK what else to put here</p>
+                </div>
+            </div>
+        </div>
+
+        <!--Landing page redirection script-->
+
         <script>
-            location = "landing/landing.html"
+            if(!JSON.parse(localStorage.getItem("landed"))){
+                location = "landing.html"
+                console.log('bruh')
+            }
         </script>
+
+        <!--JS-->
+
+        <script src = "js/useful.js"></script>
+        <script src = "js/main-page-canvas-driver.js"></script>
     </body>
 </html>
