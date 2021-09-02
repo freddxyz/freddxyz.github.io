@@ -1,0 +1,15 @@
+.canvas-cover {
+    margin: 25vh 10vw 0px 10vw;
+    animation-name: canvas-cover-fadeIn;
+    animation-duration: 1s;
+}
+
+@keyframes canvas-cover-fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-50px);
+    }
+    to {
+        opacity: 1;
+    }
+}
