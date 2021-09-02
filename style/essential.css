@@ -1,5 +1,10 @@
 :root {
     --nav-width: 20vw;
+    --primary-color: white;
+    --card-container-background: rgba(0, 0, 0, 0.5);
+    --card-background: rgba(0, 0, 0, 0.788);
+    --emphasis-color: rgba(252, 217, 61, 0.788);
+    --mobile-nav-height: 60px;
 }
 
 html,
@@ -8,15 +13,23 @@ body {
     padding: 0;
     width: 100%;
     height: 100%;
-    background-color: rgb(43, 43, 43);
+    background-color: rgb(19, 19, 19);
+}
+
+.wrapper {
     overflow: auto;
 }
+
 .navbar {
     height: 100vh;
     width: var(--nav-width);
     list-style: none;
     background-color: black;
     position: fixed;
+}
+
+.mobile-navbar {
+    display: none;
 }
 
 .logo {
@@ -81,7 +94,6 @@ body {
 .page-content {
     margin-left: calc(var(--nav-width));
     margin-top: 0px;
-    height: 100vh;
     overflow: auto;
 }
 
@@ -96,5 +108,179 @@ body {
 .canvas-container {
     height: 100%;
     overflow: hidden;
-    position: absolute;
+    position: fixed;
+}
+
+/*Scrollbar*/
+
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgb(141, 141, 141);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgb(43, 43, 43);
+}
+
+/*=====Card display======*/
+
+.canvas-cover {
+    display: block;
+    position: relative;
+    z-index: 1;
+    margin: 40px;
+    overflow: auto;
+    border-radius: 20px;
+    backdrop-filter: blur(2px);
+    font-size: 32px;
+    font-family: 'Open Sans', sans-serif;
+    border: 2px solid var(--primary-color);
+}
+
+/*leading cover for page*/
+
+.primary-cover {
+    text-align: center;
+    color: white;
+    background-color: var(--card-container-background);
+}
+
+/*secondary cover*/
+
+.secondary-cover {
+    color: white;
+    background-color: var(--card-container-background);
+}
+
+.showcase-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+}
+
+.showcase-card {
+    border: 2px solid var(--primary-color);
+    border-radius: 16px;
+    margin: 10px;
+    padding: 20px;
+    background-color: var(--card-background);
+    transition: transform 0.25s;
+    color: var(--primary-color);
+}
+
+.showcase-card:hover {
+    transform: scale(0.95);
+}
+
+.card-title {
+    font-size: 1em;
+    text-align: center;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.showcase-card img {
+    max-width: 100%;
+    height: 20vw;
+    object-fit: cover;
+    width: 100%;
+    border-radius: 16px;
+}
+
+.notice {
+    font-size: 1em;
+    color: rgb(255, 255, 0);
+    background-color: var(--card-background);
+    border-radius: 16px;
+    border: 2px solid var(--primary-color);
+    text-align: center;
+    margin: 20px 10px 20px 10px;
+}
+
+.title-emphasis {
+    color: var(--emphasis-color);
+    border-bottom: 2px solid var(--emphasis-color);
+}
+
+.cover-header {
+    text-align: center;
+    font-size: 2em;
+    font-weight: 800;
+}
+
+.link-in-text {
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.25s, background-color 0.25s;
+    display: inline-block;
+    color: rgb(101, 193, 255);
+}
+
+.link-in-text:hover {
+    transform: scale(0.8) rotate(2deg);
+    background-color: grey;
+}
+
+.link-wrap {
+    text-decoration: none;
+}
+
+@media only screen and (max-width: 980px) {
+    html,
+    body {
+        background: white linear-gradient(red, rgb(255, 255, 255)) no-repeat
+            fixed center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    .page-content {
+        margin-top: var(--nav-width);
+    }
+    .mobile-navbar {
+        z-index: 2;
+        display: block;
+        position: fixed;
+        width: 100%;
+        background-color: black;
+    }
+    .mobile-nav-items {
+        margin: 0;
+        display: flex;
+        justify-content: space-between;
+        list-style: none;
+    }
+    .mobile-nav-items li {
+        transition: background-color 1s;
+    }
+    .mobile-nav-items li:hover {
+        background-color: grey;
+    }
+    .mobile-nav-items a {
+        font-family: 'Open Sans', sans-serif;
+        font-weight: 700;
+        color: white;
+        text-decoration: none;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 0.8rem;
+        padding: 2rem;
+    }
+    .navbar {
+        display: none;
+    }
+    .page-content {
+        margin: var(--mobile-nav-height) 0 0 0;
+    }
+    .canvas-container {
+        display: none;
+    }
+    .showcase-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        width: 100%;
+    }
 }

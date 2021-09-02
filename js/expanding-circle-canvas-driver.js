@@ -1,8 +1,10 @@
 window.onload = () => {
-    const FADE_DURATION = 1;
-    var origin = new vec2(0, innerHeight / 2);
+    const MIN_WIDTH = 800;
+    const FADE_DURATION = 2;
     var fadeTicker = 0;
     var fade = 0;
+
+    var origin = new vec2(0, innerHeight / 2);
     var canvas = document.getElementById('background-canvas');
     var context = canvas.getContext('2d');
 
@@ -27,6 +29,28 @@ window.onload = () => {
         Math.pow(canvas.height / 2, 2) + Math.pow(canvas.width, 2)
     );
 
+    var doFade = () => {
+        if (fadeTicker < FADE_DURATION) {
+            fade = cosineInterpolate(0, 1, fadeTicker / FADE_DURATION);
+            fadeTicker += dt;
+        } else {
+            fade = 1;
+        }
+    };
+
+    var createCircles = (lines) => {
+        for (let i = 0; i < lines; i++) {
+            let circ = new Circle(
+                (lines - i) * expandSpeed * creationInterval,
+                colors[colorInd],
+                context
+            );
+            colorInd = (colorInd + 1) % colors.length;
+            circ.position = origin;
+            circles.push(circ);
+        }
+    };
+
     var initCircles = () => {
         //expandSpeed = increase in radius per second
         //creationInterval = amount of seconds in between each new circle
@@ -39,39 +63,10 @@ window.onload = () => {
         createTicker = 0;
         circles = [];
         let circlesRequired = pageDiag / (creationInterval * expandSpeed);
-        for (let i = 0; i < circlesRequired; i++) {
-            let circ = new Circle(
-                (circlesRequired - i) * expandSpeed * creationInterval,
-                colors[colorInd],
-                context
-            );
-            colorInd = (colorInd + 1) % colors.length;
-            circ.position = origin;
-            circles.push(circ);
-        }
+        createCircles(circlesRequired);
     };
 
-    initCircles();
-
-    var draw = () => {
-        requestAnimationFrame(draw);
-
-        canvas.width = window.innerWidth * 0.8;
-        canvas.height = window.innerHeight;
-
-        let now = Date.now();
-        let dt = (now - prevTick) / 1000;
-        prevTick = now;
-
-        createTicker += dt;
-
-        if (fadeTicker < 1) {
-            fade = cosineInterpolate(0, 1, fadeTicker);
-            fadeTicker += dt;
-        } else {
-            fade = 1;
-        }
-
+    var circleCreation = () => {
         if (createTicker > creationInterval) {
             createTicker = 0;
             let cl = colors[colorInd];
@@ -83,7 +78,9 @@ window.onload = () => {
 
             circles.push(circle);
         }
+    };
 
+    var deleteCircles = () => {
         let newCircles = [];
 
         for (let i = 0; i < circles.length; i++) {
@@ -101,13 +98,32 @@ window.onload = () => {
         circles = newCircles;
     };
 
-    window.onfocus = () => {
-        initCircles();
+    initCircles();
+
+    var dt = 0;
+
+    var draw = () => {
+        requestAnimationFrame(draw);
+        if (window.innerWidth < MIN_WIDTH) {
+            return;
+        }
+        canvas.width = window.innerWidth * 0.8;
+        canvas.height = window.innerHeight;
+
+        let now = Date.now();
+        dt = (now - prevTick) / 1000;
+        prevTick = now;
+
+        createTicker += dt;
+
+        doFade();
+
+        circleCreation();
+
+        deleteCircles();
     };
 
-    window.onresize = () => {
-        initCircles();
-    };
+    window.onfocus = window.onresize = initCircles;
 
     requestAnimationFrame(draw);
 };

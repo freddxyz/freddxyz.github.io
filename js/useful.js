@@ -102,3 +102,8 @@ class vec2 {
         this.y = y;
     }
 }
+
+const logo = document.getElementById('logo');
+window.onscroll = function () {
+    logo.style.transform = `rotate(${window.pageYOffset / 2}deg)`;
+};

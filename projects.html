@@ -20,8 +20,10 @@
         <!--CSS-->
 
         <link rel = "stylesheet" href = "style/essential.css">
-        <link rel = "stylesheet" href = "style/projects.css">
-
+        <link rel = "stylesheet" href = "style/projectShowcase.css">
+        <meta name = "author" content = "Fred">
+        <meta name = "description" content = "FradZGenius's Projects">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
         <div class = "wrapper">
@@ -42,34 +44,50 @@
                     </li>
                 </ul>
             </nav>
+            <nav class = "mobile-navbar">
+                <ul class = "mobile-nav-items">
+                    <li>
+                        <a href = "index.html">Home</a>
+                    </li>
+                    <li>
+                        <a href = "projects.html">Projects</a>
+                    </li>
+                    <li>
+                        <a href = "https://www.youtube.com/channel/UCxkhPyPBxjc_AfXWWrP_JGw">YouTube</a>
+                    </li>
+                    <li>
+                        <a href = "about.html">About Me</a>
+                    </li>
+                </ul>
+            </nav>
             <div class = "page-content">
                 <div class = "canvas-container">
                     <canvas class = "background-canvas" id = "background-canvas"></canvas>
                 </div>
-                <div class = "canvas-cover header-cover">
+                <div class = "canvas-cover primary-cover">
                     <h1 class = "cover-header main">My Projects</h1>
                     <p>
                         Here are some of the projects I've built.
                     </p>
                 </div>
-                <div class = "canvas-cover showcase-cover">
+                <div class = "canvas-cover secondary-cover">
                     <h1 class = "cover-header">Roblox</h1>
-                    <div class = "project-showcase-container">
-                        <div class = "project-showcase-card">
-                            <h1 class = "showcase-card-title title-emphasis">FPS Framework</h1>
-                            <a href = "https://www.roblox.com/games/5477980027/FPS-Testing">
+                    <div class = "showcase-container">
+                        <div class = "showcase-card">
+                            <h1 class = "card-title title-emphasis">FPS Framework</h1>
+                            <a href = "https://www.roblox.com/games/5477980027/FPS-Testing" target = "_blank" rel = "noopener noreferrer">
                                 <img src = "assets/fpsframeworkthumbnail.PNG">
                             </a>
                         </div>
-                        <div class = "project-showcase-card">
-                            <h1 class = "showcase-card-title">Fortress Warfare</h1>
-                            <a href = "https://www.roblox.com/games/2593053649/Fortress-Warfare">
+                        <div class = "showcase-card">
+                            <h1 class = "card-title">Fortress Warfare</h1>
+                            <a href = "https://www.roblox.com/games/2593053649/Fortress-Warfare" target = "_blank" rel = "noopener noreferrer">
                                 <img src = "assets/FortressWarfarethumb.PNG">
                             </a>
                         </div>
-                        <div class = "project-showcase-card">
-                            <h1 class = "showcase-card-title">The Great Castle Bombing</h1>
-                            <a href = "https://www.roblox.com/games/1320789304/The-Great-Castle-Bombing">
+                        <div class = "showcase-card">
+                            <h1 class = "card-title">The Great Castle Bombing</h1>
+                            <a href = "https://www.roblox.com/games/1320789304/The-Great-Castle-Bombing" target = "_blank" rel = "noopener noreferrer">
                                 <img src = "assets/castleBombing.png">
                             </a>
                         </div>
@@ -78,27 +96,27 @@
                         Note: most of these games have limited functionality due to Roblox updates / outdated code
                     </p>
                 </div>
-                <div class = "canvas-cover showcase-cover">
+                <div class = "canvas-cover secondary-cover">
                     <h1 class = "cover-header">Javascript</h1>
-                    <div class = "project-showcase-container">
-                        <div class = "project-showcase-card">
-                            <h1 class = "showcase-card-title">Three.js Plane Game</h1>
-                            <a href = "https://ace-aviation.frederikdavidso.repl.co/">
+                    <div class = "showcase-container">
+                        <div class = "showcase-card">
+                            <h1 class = "card-title">Three.js Plane Game</h1>
+                            <a href = "https://ace-aviation.frederikdavidso.repl.co/" target = "_blank" rel = "noopener noreferrer">
                                 <img src = "assets/planegame.PNG">
                             </a>
                         </div>
-                        <div class = "project-showcase-card">
-                            <h1 class = "showcase-card-title">Multiplayer Top Down Shooter</h1>
-                            <a href = "https://TopDownShooter.frederikdavidso.repl.co">
+                        <div class = "showcase-card">
+                            <h1 class = "card-title">Multiplayer Top Down Shooter</h1>
+                            <a href = "https://TopDownShooter.frederikdavidso.repl.co" target = "_blank" rel = "noopener noreferrer">
                                 <img src = "assets/topdownshooter.PNG">
                             </a>
                         </div>
-                        <div class = "project-showcase-card">
-                            <h1 class = "showcase-card-title">SAT Collision Detection With Three.js</h1>
-                            <a href = "https://www.youtube.com/watch?v=cL9GHcJ6FrU">
-                                <img src = "assets/collisionDetection.PNG">
-                            </a>
-                        </div>
+                        <a class = "link-wrap" href = "https://www.youtube.com/watch?v=cL9GHcJ6FrU" target = "_blank" rel = "noopener noreferrer">
+                            <div class = "showcase-card">
+                                <h1 class = "card-title">SAT Collision Detection With Three.js</h1>
+                                    <img src = "assets/collisionDetection.PNG">
+                            </div>
+                        </a>
                     </div>
                     <!--https://TopDownShooter.frederikdavidso.repl.co-->
                 </div>
@@ -108,16 +126,5 @@
         <!--JS-->
         <script src = "js/useful.js"></script>
         <script src = "js/expanding-circle-canvas-driver.js"></script>
-
-        <!--Rotate when scroll-->
-        <script>
-            const logo = document.getElementById('logo');
-            const pageContainer = document.getElementsByClassName('page-content')[0];
-            pageContainer.onscroll = function () {
-                logo.style.transform = `rotate(${pageContainer.scrollTop / 2}deg)`;
-                console.log(pageContainer);
-            };
-        </script>
-
     </body>
 </html>
