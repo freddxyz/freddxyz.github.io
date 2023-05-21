@@ -26,8 +26,8 @@ window.onload = function () {
 
     var baseFontSz = window.innerWidth / 10;
 
-    var text1 = 'Mentor and Game Developer';
-    var text2 = 'Welcome to My Site.';
+    var text1 = 'Software Developer and Mentor';
+    var text2 = 'This is my website:';
 
     var redirecting = false;
 

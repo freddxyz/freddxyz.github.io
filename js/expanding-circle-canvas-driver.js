@@ -103,7 +103,6 @@ window.onload = () => {
     var dt = 0;
 
     var draw = () => {
-        requestAnimationFrame(draw);
         if (window.innerWidth < MIN_WIDTH) {
             return;
         }
@@ -121,6 +120,8 @@ window.onload = () => {
         circleCreation();
 
         deleteCircles();
+        setTimeout(()=>{requestAnimationFrame(draw);}, 1000/FRAME_RATE);
+        
     };
 
     window.onfocus = window.onresize = initCircles;

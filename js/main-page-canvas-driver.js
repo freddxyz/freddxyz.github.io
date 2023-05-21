@@ -16,33 +16,36 @@ window.onload = () => {
 
     var lastColor = 'white';
 
+    var trailingLine;
+
     var ROOT_2 = Math.sqrt(2);
 
     var lineWidth = 200;
 
     var lineSpeed = 200;
 
+    var frameRate = 40;
+
     let a = window.innerHeight;
     let c = ROOT_2 * a;
     let b = Math.sqrt(Math.pow(c, 2) - Math.pow(a, 2));
-    let sqDiag = lineWidth * ROOT_2;
-
+    let sqDiag = 2 * Math.cos(degToRad(45)) * lineWidth;//lineWidth * (ROOT_2/2);
+    //2cos(45 deg) / width
     var initLines = () => {
         a = window.innerHeight;
         c = ROOT_2 * a;
         b = Math.sqrt(Math.pow(c, 2) - Math.pow(a, 2));
         let linesRequired =
-            Math.ceil((window.innerWidth + b + sqDiag) / sqDiag) + 1;
+            Math.ceil(window.innerWidth/sqDiag)+1//Math.ceil((window.innerWidth + b + sqDiag) / sqDiag) + 1;
         linesRequired =
             linesRequired % 2 == 0 ? linesRequired : linesRequired + 1;
 
         lines = [];
-        console.log(linesRequired);
         lastColor = 'white';
-        for (let i = 0; i < linesRequired; i++) {
+        for (let i = linesRequired; i > 0; i--) {
             let rect = new Rectangle(lineWidth, 100000, COLOR_WHITE, context);
             rect.rotation = 45;
-            rect.position = new vec2(i * sqDiag - sqDiag, 0);
+            rect.position = new vec2(i * sqDiag,0) //- sqDiag, 0);
             if (lastColor == 'red') {
                 rect.color = COLOR_WHITE;
                 lastColor = 'white';
@@ -51,6 +54,7 @@ window.onload = () => {
                 lastColor = 'red';
             }
             lines.push(rect);
+            trailingLine = rect;
         }
         if (lastColor == 'red') {
             lastColor = 'white';
@@ -68,7 +72,7 @@ window.onload = () => {
 
     var draw = (tick) => {
         let now = Date.now();
-        let dt = Math.min((now - prevTick) / 1000, 1);
+        let dt = 1/frameRate;
         prevTick = now;
 
         if (fadeTicker < 1) {
@@ -78,19 +82,21 @@ window.onload = () => {
 
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight + 50;
-        if (ticker >= sqDiag / lineSpeed) {
+        if (trailingLine.position.x > 0){//ticker >= (sqDiag) / lineSpeed) {
+            console.log(trailingLine.color)
             ticker = 0;
             let rect = new Rectangle(lineWidth, 100000, COLOR_WHITE, context);
             rect.rotation = 45;
-            if (lastColor == 'red') {
+            if (trailingLine.color == COLOR_RED) {
                 rect.color = COLOR_WHITE;
                 lastColor = 'white';
             } else {
                 rect.color = COLOR_RED;
                 lastColor = 'red';
             }
-            rect.position = new vec2(-sqDiag, 0);
+            rect.position = new vec2(trailingLine.position.x - sqDiag, 0);
             lines.push(rect);
+            trailingLine = rect;
         }
         let newLines = [];
         lines.forEach((item) => {
@@ -103,7 +109,7 @@ window.onload = () => {
         });
         lines = newLines;
         ticker += dt;
-        requestAnimationFrame(draw);
+        setTimeout(()=>{requestAnimationFrame(draw);}, (1/FRAME_RATE) * 1000);
     };
 
     window.onfocus = () => {

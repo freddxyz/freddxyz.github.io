@@ -1,3 +1,9 @@
+const FRAME_RATE = 40;
+
+function degToRad(deg) {
+    return deg * (Math.PI / 180);
+}
+
 function randint(min, max) {
     return Math.floor(Math.random() * max) + min;
 }
