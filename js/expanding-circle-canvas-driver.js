@@ -10,8 +10,8 @@ window.onload = () => {
 
     var createTicker = 0;
 
-    var creationInterval = 2;
-    var expandSpeed = 100;
+    var creationInterval = 4;
+    var expandSpeed = 50;
     var prevTick = Date.now();
 
     var testCircle = new Circle(1000, COLOR_RED, context);

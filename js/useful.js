@@ -1,4 +1,4 @@
-const FRAME_RATE = 40;
+const FRAME_RATE = 24;
 
 function degToRad(deg) {
     return deg * (Math.PI / 180);
@@ -111,5 +111,5 @@ class vec2 {
 
 const logo = document.getElementById('logo');
 window.onscroll = function () {
-    logo.style.transform = `rotate(${window.pageYOffset / 2}deg)`;
+    logo.style.transform = `rotate(${(window.pageYOffset / window.innerHeight) * 135}deg)`;
 };

@@ -22,9 +22,9 @@ window.onload = () => {
 
     var lineWidth = 200;
 
-    var lineSpeed = 200;
+    var lineSpeed = 50;
 
-    var frameRate = 40;
+    //var frameRate = 40;
 
     let a = window.innerHeight;
     let c = ROOT_2 * a;
@@ -72,7 +72,7 @@ window.onload = () => {
 
     var draw = (tick) => {
         let now = Date.now();
-        let dt = 1/frameRate;
+        let dt = 1/FRAME_RATE;
         prevTick = now;
 
         if (fadeTicker < 1) {

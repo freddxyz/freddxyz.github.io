@@ -26,7 +26,7 @@ window.onload = function () {
 
     var baseFontSz = window.innerWidth / 10;
 
-    var text1 = 'Software Developer and Mentor';
+    var text1 = 'Engineer and Creator';
     var text2 = 'This is my website:';
 
     var redirecting = false;
@@ -63,7 +63,7 @@ window.onload = function () {
         } else if (ticker > 1 && ticker < 1.5) {
             squareOffset.x = cosineInterpolate(
                 0,
-                context.measureText('FradZGenius').width / 2 + sqDiag * 0.125,
+                context.measureText('Fred Davidson').width / 2 + sqDiag * 0.125,
                 (ticker - 1) / 0.5
             );
             whiteSquare.size.x = window.innerWidth / 10;
@@ -76,7 +76,7 @@ window.onload = function () {
             squareX = window.innerWidth / 2 - (ticker - 1) * 500;
         } else if (ticker > 1.5 && ticker < 2) {
             squareOffset.x =
-                context.measureText('FradZGenius').width / 2 + sqDiag * 0.125;
+                context.measureText('Fred Davidson').width / 2 + sqDiag * 0.125;
             context.fillStyle =
                 'rgba(255,255,255,' +
                 cosineInterpolate(0, 1, (ticker - 1.5) / 0.5) +
@@ -84,7 +84,7 @@ window.onload = function () {
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillText(
-                'FradZGenius',
+                'Fred Davidson',
                 window.innerWidth / 2 +
                     sqDiag * 1.125 -
                     cosineInterpolate(sqDiag, 0, (ticker - 1.5) / 0.5),
@@ -101,12 +101,12 @@ window.onload = function () {
             );
         } else if (ticker > 2 && ticker < 3) {
             squareOffset.x =
-                context.measureText('FradZGenius').width / 2 + sqDiag * 0.125;
+                context.measureText('Fred Davidson').width / 2 + sqDiag * 0.125;
             context.fillStyle = 'white';
             context.textAlign = 'center';
             context.textBaseline = 'middle';
             context.fillText(
-                'FradZGenius',
+                'Fred Davidson',
                 window.innerWidth / 2 + sqDiag * 1.125,
                 window.innerHeight / 2
             ); ///0.625
@@ -123,7 +123,7 @@ window.onload = function () {
                 cosineInterpolate(1, 0, (ticker - 3) * 2) +
                 ')';
             context.fillText(
-                'FradZGenius',
+                'Fred Davidson',
                 window.innerWidth / 2 +
                     sqDiag * 1.125 -
                     cosineInterpolate(0, sqDiag, (ticker - 3) / 0.5),
@@ -135,7 +135,7 @@ window.onload = function () {
                 (ticker - 3) / 0.5
             );
             squareOffset.x = cosineInterpolate(
-                context.measureText('FradZGenius').width / 2 + sqDiag * 0.125,
+                context.measureText('Fred Davidson').width / 2 + sqDiag * 0.125,
                 0,
                 (ticker - 3) / 0.5
             );
