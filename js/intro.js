@@ -1,15 +1,17 @@
-window.onload = function () {
-    var canvas = document.getElementById('landing_canvas');
+(function () {
+    var canvas = document.getElementById('intro-canvas');
     var context = canvas.getContext('2d');
-    //
-    setup: {
+    var wrapper = document.querySelector('.wrapper');
+    canvas.hidden = false;
+    wrapper.inert = true;
+    document.body.classList.add('intro-playing');
+    {
         context.canvas.width = window.innerWidth;
         context.canvas.height = window.innerHeight;
     }
     var ticker = 0;
     var prevTick = Date.now();
     var deltaTime = 0;
-    var rot = 0;
     var initialSize = new vec2(window.innerWidth, window.innerHeight);
     var whiteSquare = new Rectangle(
         initialSize.x + initialSize.y,
@@ -18,7 +20,6 @@ window.onload = function () {
         context
     );
     var redStripe = new Rectangle(0, 0, COLOR_RED, context);
-    var bgc = 'rgb(0,0,0,1)';
     redStripe.parent = whiteSquare;
 
     var squareOffset = new vec2(0, 0);
@@ -26,16 +27,15 @@ window.onload = function () {
 
     var baseFontSz = window.innerWidth / 10;
 
-    var text1 = 'Engineer and Creator';
-    var text2 = 'This is my website:';
-
-    var redirecting = false;
-
     whiteSquare.position = screenCenter;
 
     var draw = function () {
-        if (redirecting) return;
-        requestAnimationFrame(draw);
+        if (ticker >= 4) {
+            canvas.remove();
+            wrapper.inert = false;
+            document.body.classList.remove('intro-playing');
+            return;
+        }
         context.canvas.width = window.innerWidth;
         context.canvas.height = window.innerHeight;
         baseFontSz = window.innerWidth / 10;
@@ -60,7 +60,7 @@ window.onload = function () {
                 ticker
             );
             whiteSquare.rotation += 720 * deltaTime;
-        } else if (ticker > 1 && ticker < 1.5) {
+        } else if (ticker >= 1 && ticker < 1.5) {
             squareOffset.x = cosineInterpolate(
                 0,
                 context.measureText('Fred Davidson').width / 2 + sqDiag * 0.125,
@@ -73,8 +73,7 @@ window.onload = function () {
                 -495,
                 (ticker - 1) / 0.5
             );
-            squareX = window.innerWidth / 2 - (ticker - 1) * 500;
-        } else if (ticker > 1.5 && ticker < 2) {
+        } else if (ticker >= 1.5 && ticker < 2) {
             squareOffset.x =
                 context.measureText('Fred Davidson').width / 2 + sqDiag * 0.125;
             context.fillStyle =
@@ -99,7 +98,7 @@ window.onload = function () {
                 whiteSquare.size.y,
                 (ticker - 1.5) / 0.5
             );
-        } else if (ticker > 2 && ticker < 3) {
+        } else if (ticker >= 2 && ticker < 3) {
             squareOffset.x =
                 context.measureText('Fred Davidson').width / 2 + sqDiag * 0.125;
             context.fillStyle = 'white';
@@ -114,7 +113,7 @@ window.onload = function () {
             whiteSquare.size.y = window.innerWidth / 10;
             redStripe.size.x = whiteSquare.size.x / 3;
             redStripe.size.y = whiteSquare.size.y;
-        } else if (ticker > 3 && ticker < 3.5) {
+        } else if (ticker >= 3 && ticker < 3.5) {
             context.fillStyle = 'white';
             context.textAlign = 'center';
             context.textBaseline = 'middle';
@@ -144,7 +143,7 @@ window.onload = function () {
                 45,
                 (ticker - 3) / 0.5
             );
-        } else if (ticker > 3.5 && ticker < 4) {
+        } else if (ticker >= 3.5 && ticker < 4) {
             whiteSquare.size.x = cosineInterpolate(
                 window.innerWidth / 10,
                 initialSize.x + initialSize.y,
@@ -160,84 +159,13 @@ window.onload = function () {
                 200,
                 (ticker - 3.5) / 0.5
             );
-        } else if (ticker > 4 && ticker < 6) {
-            setBg('white');
-            context.fillStyle =
-                'rgba(0,0,0,' + cosineInterpolate(0, 1, (ticker - 4) / 2) + ')';
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.font = baseFontSz / 2 + 'px Roboto';
-            context.fillText(
-                text1,
-                window.innerWidth / 2,
-                window.innerHeight / 2
-            );
-            whiteSquare.size.x = 0;
-            whiteSquare.size.y = 0;
-        } else if (ticker > 6 && ticker < 7) {
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.font = baseFontSz / 2 + 'px Roboto';
-            context.fillText(
-                text1,
-                window.innerWidth / 2,
-                window.innerHeight / 2
-            );
-        } else if (ticker > 7 && ticker < 8) {
-            context.fillStyle =
-                'rgba(0,0,0,' + cosineInterpolate(1, 0, ticker - 7) + ')';
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.font = baseFontSz / 2 + 'px Roboto';
-            context.fillText(
-                text1,
-                window.innerWidth / 2,
-                window.innerHeight / 2
-            );
-        } else if (ticker > 8 && ticker < 10) {
-            context.fillStyle =
-                'rgba(0,0,0,' + cosineInterpolate(0, 1, (ticker - 8) / 2) + ')';
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.font = baseFontSz / 2 + 'px Roboto';
-            context.fillText(
-                text2,
-                window.innerWidth / 2,
-                window.innerHeight / 2
-            );
-        } else if (ticker > 10 && ticker < 11) {
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.font = baseFontSz / 2 + 'px Roboto';
-            context.fillText(
-                text2,
-                window.innerWidth / 2,
-                window.innerHeight / 2
-            );
-        } else if (ticker > 11 && ticker < 12) {
-            context.fillStyle =
-                'rgba(0,0,0,' + cosineInterpolate(1, 0, ticker - 11) + ')';
-            context.textAlign = 'center';
-            context.textBaseline = 'middle';
-            context.font = baseFontSz / 2 + 'px Roboto';
-            context.fillText(
-                text2,
-                window.innerWidth / 2,
-                window.innerHeight / 2
-            );
-        } else {
-            localStorage.setItem('landed', true);
-            location = '../index.html';
-            redirecting = true;
         }
         whiteSquare.position = screenCenter.sub(squareOffset);
         whiteSquare.draw();
         redStripe.draw();
         ticker += deltaTime;
+        requestAnimationFrame(draw);
     };
 
-    var setBg = function (color) {
-        document.body.style.backgroundColor = color;
-    };
     requestAnimationFrame(draw);
-};
+})();

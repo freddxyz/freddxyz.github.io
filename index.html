@@ -28,6 +28,7 @@
 
     </head>
     <body>
+        <canvas id="intro-canvas" aria-hidden="true" hidden></canvas>
         <div class = "wrapper">
             <!--Navbar-->
             <nav class = "navbar fixed">
@@ -77,17 +78,9 @@
             </div>
         </div>
        
-        <!--Landing page redirection script-->
-
-        <script>
-            if(!JSON.parse(localStorage.getItem("landed"))){
-                location = "landing.html"
-                console.log('bruh')
-            }
-        </script>
-
         <!--JS-->
 
         <script src = "js/useful.js"></script>
+        <script src = "js/intro.js"></script>
     </body>
 </html>
