@@ -1,3 +1,45 @@
+.stripe-background {
+    /* A 200px stripe at 45 degrees spans 200 * sqrt(2) horizontally.
+       Two stripes repeat every 565.685px; at 50px/s that takes 11.314s. */
+    --stripe-period: 565.685424949px;
+    width: 100%;
+    pointer-events: none;
+    animation: stripe-fade-in 1s ease-in-out both;
+}
+
+.stripe-background::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 calc(0px - var(--stripe-period));
+    /* Center a red stripe on the top-left origin, as the canvas did. */
+    background-image: repeating-linear-gradient(
+        135deg,
+        red 0 100px,
+        white 100px 300px,
+        red 300px 400px
+    );
+    background-size: var(--stripe-period) var(--stripe-period);
+    animation: stripe-drift 11.313708499s linear infinite;
+}
+
+@keyframes stripe-drift {
+    to {
+        transform: translateX(var(--stripe-period));
+    }
+}
+
+@keyframes stripe-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stripe-background,
+    .stripe-background::before {
+        animation: none;
+    }
+}
+
 .canvas-cover {
     margin: 25vh 10vw 0px 10vw;
     animation-name: canvas-cover-fadeIn;
