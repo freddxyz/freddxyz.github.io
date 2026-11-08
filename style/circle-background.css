@@ -1,0 +1,42 @@
+@property --ring-travel {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+.circle-background {
+    width: calc(100vw - var(--nav-width));
+    height: 100vh;
+    pointer-events: none;
+    --ring-origin: 0px;
+    /* The original outermost circle starts red at the farthest corner.
+       Repeating inward gives red, white, black, each 200px thick. */
+    background-image: repeating-radial-gradient(
+        circle at 0 50%,
+        black calc(var(--ring-origin) + var(--ring-travel) - 600px)
+              calc(var(--ring-origin) + var(--ring-travel) - 400px),
+        white calc(var(--ring-origin) + var(--ring-travel) - 400px)
+              calc(var(--ring-origin) + var(--ring-travel) - 200px),
+        red calc(var(--ring-origin) + var(--ring-travel) - 200px)
+            calc(var(--ring-origin) + var(--ring-travel))
+    );
+    /* Moving a full three-color repeat makes the loop seamless.
+       600px / 12s = 50px/s, matching the canvas radius speed. */
+    animation: circle-expand 12s linear infinite,
+               circle-fade-in 2s ease-in-out both;
+}
+
+@keyframes circle-expand {
+    to { --ring-travel: 600px; }
+}
+
+@keyframes circle-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .circle-background {
+        animation: none;
+    }
+}
