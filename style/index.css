@@ -1,3 +1,217 @@
+.intro-playing {
+    overflow: hidden;
+}
+
+.intro-playing:not(.intro-revealing) .wrapper {
+    visibility: hidden;
+}
+
+.intro-playing:not(.intro-revealing) .wrapper * {
+    animation-play-state: paused;
+}
+
+#intro {
+    --intro-ease: cubic-bezier(0.65, 0, 0.35, 1);
+    --intro-offset: calc(var(--intro-name-half) + .8838834765vw);
+    --intro-name-center: 7.9549512883vw;
+    --intro-name-right: calc(var(--intro-name-half) + var(--intro-name-center));
+    --intro-reveal-gap: calc(var(--intro-name-center) + .8838834765vw);
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    background: black;
+    z-index: 10;
+}
+
+.intro-playing #intro {
+    animation: intro-backdrop 0.5s linear 1s both;
+}
+
+@keyframes intro-backdrop {
+    from { background-color: black; }
+    to { background-color: transparent; }
+}
+
+.intro-square-position {
+    position: absolute;
+    left: calc(50% - 5vw);
+    top: calc(50% - 5vw);
+    width: 10vw;
+    height: 10vw;
+}
+
+.intro-square-size,
+.intro-square {
+    width: 100%;
+    height: 100%;
+}
+
+.intro-square {
+    display: grid;
+    place-items: center;
+    background: white;
+}
+
+.intro-stripe {
+    width: calc(100% / 3);
+    height: 100%;
+    background: red;
+    transform: scaleY(1);
+}
+
+.intro-name {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    white-space: nowrap;
+    color: white;
+    font: 400 10vw / 1 'Roboto', sans-serif;
+    transform: translate(-50%, -50%) translateX(var(--intro-name-center));
+    /* Reveal right to left, then mask the left half during the return.
+       Extra width keeps the name's right edge visible throughout the sweep. */
+    mask-image: linear-gradient(white, white);
+    mask-repeat: no-repeat;
+    mask-size: calc(100% + var(--intro-reveal-gap)) 100%;
+    mask-position: calc(var(--intro-name-half) + var(--intro-name-half)) 0;
+}
+
+.intro-playing .intro-square-position {
+    animation: intro-position 1.5s var(--intro-ease) both;
+}
+
+.intro-playing .intro-square-size {
+    animation: intro-size 1.5s var(--intro-ease) both;
+}
+
+.intro-playing .intro-square {
+    animation: intro-rotation 1.5s var(--intro-ease) both;
+}
+
+.intro-playing .intro-stripe {
+    animation: intro-stripe 1.5s var(--intro-ease) both;
+}
+
+.intro-playing .intro-name {
+    animation: intro-name 1.5s var(--intro-ease) both,
+        intro-name-mask 1.5s var(--intro-ease) both;
+}
+
+/* Start small at the name's right end with the stripe already drawn.
+   0-0.5s: roll left, revealing the name. 0.5-0.75s: hold.
+   0.75-1s: retract. 1-1.5s: expand to fill the screen. */
+@keyframes intro-position {
+    0% { transform: translateX(var(--intro-name-right)); }
+    33.33333333% { transform: translateX(calc(0px - var(--intro-offset))); }
+    50% {
+        transform: translateX(calc(0px - var(--intro-offset)));
+        animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    66.66666667%, 100% { transform: translateX(0); }
+}
+
+@keyframes intro-size {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    66.66666667% {
+        transform: scale(1);
+        opacity: 1;
+        animation-timing-function: linear;
+    }
+    100% {
+        transform: scale(var(--intro-cover-scale));
+        opacity: 0;
+    }
+}
+
+@keyframes intro-rotation {
+    0% { transform: rotate(225deg); }
+    33.33333333% { transform: rotate(-135deg); }
+    50% {
+        transform: rotate(-135deg);
+        animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    /* A clockwise quarter-turn follows the return slide. */
+    66.66666667% {
+        transform: rotate(-45deg);
+        animation-timing-function: linear;
+    }
+    100% { transform: rotate(110deg); }
+}
+
+@keyframes intro-stripe {
+    0%, 50% { transform: scaleY(1); }
+    66.66666667%, 100% { transform: scaleY(0); }
+}
+
+@keyframes intro-name {
+    0%, 50% {
+        opacity: 1;
+    }
+    66.66666667%, 100% {
+        opacity: 0;
+    }
+}
+
+@keyframes intro-name-mask {
+    0% {
+        mask-position: calc(var(--intro-name-half) + var(--intro-name-half)) 0;
+    }
+    33.33333333% {
+        mask-position: calc(0px - var(--intro-reveal-gap)) 0;
+    }
+    50% {
+        mask-position: calc(0px - var(--intro-reveal-gap)) 0;
+        animation-timing-function: cubic-bezier(0.42, 0, 1, 1);
+    }
+    66.66666667%, 100% {
+        mask-position: var(--intro-name-half) 0;
+    }
+}
+
+.stripe-background {
+    /* A 200px stripe at 45 degrees spans 200 * sqrt(2) horizontally.
+       Two stripes repeat every 565.685px; at 50px/s that takes 11.314s. */
+    --stripe-period: 565.685424949px;
+    width: 100%;
+    pointer-events: none;
+    animation: stripe-fade-in 1s ease-in-out both;
+}
+
+.stripe-background::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 calc(0px - var(--stripe-period));
+    /* Center a red stripe on the top-left origin, as the canvas did. */
+    background-image: repeating-linear-gradient(
+        135deg,
+        red 0 100px,
+        white 100px 300px,
+        red 300px 400px
+    );
+    background-size: var(--stripe-period) var(--stripe-period);
+    animation: stripe-drift 11.313708499s linear infinite;
+}
+
+@keyframes stripe-drift {
+    to {
+        transform: translateX(var(--stripe-period));
+    }
+}
+
+@keyframes stripe-fade-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .stripe-background,
+    .stripe-background::before {
+        animation: none;
+    }
+}
+
 .canvas-cover {
     margin: 25vh 10vw 0px 10vw;
     animation-name: canvas-cover-fadeIn;

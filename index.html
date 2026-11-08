@@ -28,6 +28,16 @@
 
     </head>
     <body>
+        <div id="intro" aria-hidden="true" hidden>
+            <span class="intro-name">Fred Davidson</span>
+            <div class="intro-square-position">
+                <div class="intro-square-size">
+                    <div class="intro-square">
+                        <div class="intro-stripe"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class = "wrapper">
             <!--Navbar-->
             <nav class = "navbar fixed">
@@ -69,9 +79,7 @@
             <!--Main page content-->
 
             <div class = "page-content">
-                <div class = "canvas-container">
-                    <canvas class = "background-canvas" id = "canvas"></canvas>
-                </div>
+                <div class = "canvas-container stripe-background" aria-hidden = "true"></div>
                 <div class = "canvas-cover primary-cover">
                     <h1 class = "cover-header">Frederik Davidson</h1>
                     <p>Engineer and Creator </p>
@@ -79,18 +87,9 @@
             </div>
         </div>
        
-        <!--Landing page redirection script-->
-
-        <script>
-            if(!JSON.parse(localStorage.getItem("landed"))){
-                location = "landing.html"
-                console.log('bruh')
-            }
-        </script>
-
         <!--JS-->
 
         <script src = "js/useful.js"></script>
-        <script src = "js/main-page-canvas-driver.js"></script>
+        <script src = "js/intro.js"></script>
     </body>
 </html>
