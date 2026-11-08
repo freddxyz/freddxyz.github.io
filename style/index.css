@@ -10,13 +10,121 @@
     animation-play-state: paused;
 }
 
-#intro-canvas {
+#intro {
+    /* Sample the original cosine interpolation, rather than using CSS ease. */
+    --intro-ease: linear(0, .006156, .024472, .054497, .095492, .146447,
+        .206107, .273005, .345492, .421783, .5, .578217, .654508,
+        .726995, .793893, .853553, .904508, .945503, .975528, .993844, 1);
+    --intro-offset: calc(var(--intro-name-half) + .8838834765vw);
     position: fixed;
     inset: 0;
-    width: 100%;
-    height: 100%;
+    overflow: hidden;
     background: black;
     z-index: 10;
+}
+
+.intro-square-position {
+    position: absolute;
+    left: calc(50% - 5vw);
+    top: calc(50% - 5vw);
+    width: 10vw;
+    height: 10vw;
+}
+
+.intro-square-size,
+.intro-square {
+    width: 100%;
+    height: 100%;
+}
+
+.intro-square {
+    display: grid;
+    place-items: center;
+    background: white;
+}
+
+.intro-stripe {
+    width: calc(100% / 3);
+    height: 100%;
+    background: red;
+    transform: scaleY(0);
+}
+
+.intro-name {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    white-space: nowrap;
+    color: white;
+    font: 400 10vw / 1 'Roboto', sans-serif;
+    opacity: 0;
+}
+
+.intro-playing .intro-square-position {
+    animation: intro-position 4s var(--intro-ease) both;
+}
+
+.intro-playing .intro-square-size {
+    animation: intro-size 4s var(--intro-ease) both;
+}
+
+.intro-playing .intro-square {
+    animation: intro-rotation 4s var(--intro-ease) both;
+}
+
+.intro-playing .intro-stripe {
+    animation: intro-stripe 4s var(--intro-ease) both;
+}
+
+.intro-playing .intro-name {
+    animation: intro-name 4s var(--intro-ease) both;
+}
+
+/* 0-1s: shrink and spin. 1-1.5s: move left and rotate.
+   1.5-2s: reveal the name and stripe. 2-3s: hold.
+   3-3.5s: retract. 3.5-4s: expand to fill the screen. */
+@keyframes intro-position {
+    0%, 25% { transform: translateX(0); }
+    37.5%, 75% { transform: translateX(calc(0px - var(--intro-offset))); }
+    87.5%, 100% { transform: translateX(0); }
+}
+
+@keyframes intro-size {
+    0% { transform: scale(var(--intro-cover-scale)); }
+    25%, 87.5% { transform: scale(1); }
+    100% { transform: scale(var(--intro-cover-scale)); }
+}
+
+@keyframes intro-rotation {
+    0% {
+        transform: rotate(0deg);
+        animation-timing-function: linear;
+    }
+    25% { transform: rotate(720deg); }
+    37.5%, 75% { transform: rotate(225deg); }
+    87.5% { transform: rotate(765deg); }
+    100% { transform: rotate(920deg); }
+}
+
+@keyframes intro-stripe {
+    0%, 37.5% { transform: scaleY(0); }
+    50%, 75% { transform: scaleY(1); }
+    87.5%, 100% { transform: scaleY(0); }
+}
+
+@keyframes intro-name {
+    0%, 37.5% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateX(.8838834765vw);
+    }
+    50%, 75% {
+        opacity: 1;
+        transform: translate(-50%, -50%) translateX(7.9549512883vw);
+    }
+    87.5%, 100% {
+        opacity: 0;
+        transform: translate(-50%, -50%) translateX(.8838834765vw);
+    }
 }
 
 .stripe-background {
