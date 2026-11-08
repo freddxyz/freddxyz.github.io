@@ -14,13 +14,19 @@
         window.removeEventListener('resize', updateGeometry);
         intro.remove();
         wrapper.inert = false;
-        document.body.classList.remove('intro-playing');
+        document.body.classList.remove('intro-playing', 'intro-revealing');
+    }
+
+    function revealPage(event) {
+        if (event.target !== intro || event.animationName !== 'intro-backdrop') return;
+        document.body.classList.add('intro-revealing');
     }
 
     // JavaScript only measures layout and handles the handoff; CSS owns the timeline.
     intro.hidden = false;
     updateGeometry();
     wrapper.inert = true;
+    intro.addEventListener('animationstart', revealPage);
     square.addEventListener('animationend', finishIntro);
     window.addEventListener('resize', updateGeometry);
     document.fonts.ready.then(updateGeometry);
